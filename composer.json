@@ -1,0 +1,13 @@
+{
+  "name": "awalker/relation",
+  "psr-4": {"Relation\\": "relation/"},
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/awalker/relation"
+    }
+  ],
+  "require": {
+    "php": ">= 5.3"
+  }
+}
