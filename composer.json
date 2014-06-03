@@ -1,6 +1,10 @@
 {
   "name": "awalker/relation",
-  "psr-4": {"Relation\\": "relation/"},
+  "version": "0.0.1",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {"Relation\\": "src/"}
+  },
   "repositories": [
     {
       "type": "vcs",
