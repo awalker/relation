@@ -1,6 +1,9 @@
 <?php
 namespace Relation;
 
+/**
+ * Where clause segments
+ */
 class Segment extends RelationBase {
   protected $_field;
   protected $_op;

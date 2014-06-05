@@ -2,6 +2,9 @@
 
 namespace Relation;
 
+/**
+ * Represent a WHERE clause and the ON section of a JOIN
+ */
 class Where extends RelationBase {
   protected $_segments;
   public $paste = ' AND ';
@@ -16,7 +19,9 @@ class Where extends RelationBase {
       $root = null;
     }
     parent::__construct($parent, $root);
-    $this->setSegments($start);
+    if (!is_null($start)) {
+      $this->setSegments($start);
+    }
   }
 
   function setSegments($segments) {
@@ -29,7 +34,9 @@ class Where extends RelationBase {
   }
 
   function addSegment($value) {
-    $this->_segments[] = $value;
+    if (!is_null($value)) {
+      $this->_segments[] = $value;
+    }
     return $this;
   }
 
@@ -71,7 +78,7 @@ class Where extends RelationBase {
   }
 
   function lessThanEquals($field, $value, $type=null) {
-    return $this->addSegment(new Segment($this, $field, $value, '=<', $type));
+    return $this->addSegment(new Segment($this, $field, $value, '<=', $type));
   }
 
   function isNull($field) {

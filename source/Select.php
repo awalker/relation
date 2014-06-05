@@ -49,7 +49,9 @@ class Select extends RelationBase implements \IteratorAggregate {
 
   function sub($or = ' OR ') {
     if(!$this->_where) {
-      $this->where('1=1');
+      $this->where(null);
+      $this->_where->paste = $or;
+      return $this->_where;
     }
     return $this->_where->sub($or);
   }
@@ -75,7 +77,7 @@ class Select extends RelationBase implements \IteratorAggregate {
   function order($order) {
     $this->clearStmt();
     if(!$order || $order == ' ASC' || $order == ' DESC') return $this;
-    if(!$this->_order) $this->order = array();
+    if(!$this->_order) $this->_order = array();
     if(is_string($order)) {
       $this->_order[] = $order;
     } else if(is_array($order)) {
@@ -89,6 +91,7 @@ class Select extends RelationBase implements \IteratorAggregate {
   }
 
   function q($v, $delimiter = "`") {
+    $v = str_replace($delimiter, '', $v);
     if(stripos($v, '.') === false) {
       return $delimiter . $v . $delimiter;
     } else {
@@ -112,10 +115,10 @@ class Select extends RelationBase implements \IteratorAggregate {
 
   function field($f) {
     if($this->fields == '*') {
-      $this->fields = array();
+      $this->fields(array());
     }
     if(!is_array($this->fields)) {
-      $this->fields = array($this->fields);
+      $this->fields(array($this->fields));
     }
     $this->fields[] = $f;
     return $this;
@@ -215,7 +218,7 @@ class Select extends RelationBase implements \IteratorAggregate {
     $out = array();
     if($this->_joins) {
       foreach ($this->_joins as $join) {
-        $out += $join->where->parameters();
+        $out += $join->_where->parameters();
       }
     }
     if($this->_where) {
@@ -226,19 +229,19 @@ class Select extends RelationBase implements \IteratorAggregate {
 
   function equals($k, $v, $type=null) {
     if(!$this->_where) {
-      $this->where('1', '1');
+      $this->where(null);
     }
     return $this->_where->equals($k, $v, $type);
   }
   function inArray($k, $v) {
     if(!$this->_where) {
-      $this->where('1', '1');
+      $this->where(null);
     }
     return $this->_where->inArray($k, $v);
   }
   function notEquals($k, $v, $type=null) {
     if(!$this->_where) {
-      $this->where('1', '1');
+      $this->where(null);
     }
     return $this->_where->notEquals($k, $v, $type);
   }
