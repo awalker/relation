@@ -6,7 +6,7 @@ namespace Relation;
  * Represent a WHERE clause and the ON section of a JOIN
  */
 class Where extends RelationBase {
-  protected $_segments;
+  protected $_segments = array();
   public $paste = ' AND ';
   public $op = '=';
   public $prefix = '';

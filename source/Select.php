@@ -139,8 +139,11 @@ class Select extends RelationBase implements \IteratorAggregate {
       $out[] = (string)implode(' ', $this->_joins);
     }
     if($this->_where) {
-      $out[] = 'WHERE';
-      $out[] = (string)$this->_where;
+      $where = (string)$this->_where;
+      if ($where) {
+        $out[] = 'WHERE';
+        $out[] = $where;
+      }
     }
     if($this->_order && !$count) {
       $out[] = 'ORDER BY';

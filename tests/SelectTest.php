@@ -199,4 +199,13 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(array(), $out);
   }
 
+  function testEmptyWhere() {
+    $select = new Select(null, null, null, 't');
+    $select
+    ->limit(3, 3)
+    ->where(null);
+    $this->assertEquals('SELECT * FROM `t` LIMIT 3, 3', (string)$select);
+    $this->assertNull($select->parameters());
+  }
+
 }
